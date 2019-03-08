@@ -1,5 +1,5 @@
 # work from latest LTS ubuntu release
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
 # set the environment variables
 ENV optitype_version 1.3.2
@@ -26,7 +26,8 @@ RUN apt-get update -y && apt-get install -y \
     libfreetype6-dev \
     libfreetype6 \
     pkg-config \
-    vim
+    vim \
+    less
 
 # Install additional software dependencies
 WORKDIR /usr/local/bin/
