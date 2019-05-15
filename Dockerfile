@@ -27,7 +27,8 @@ RUN apt-get update -y && apt-get install -y \
     libfreetype6 \
     pkg-config \
     vim \
-    less
+    less \
+    coinor-cbc
 
 # Install additional software dependencies
 WORKDIR /usr/local/bin/
@@ -64,7 +65,8 @@ RUN unzip v${optitype_version}.zip
 # set up default configuration
 RUN mv /usr/local/bin/OptiType-${optitype_version}/config.ini.example /usr/local/bin/OptiType-${optitype_version}/config.ini
 RUN sed -i 's/\/path\/to\//\/usr\/local\/bin\//' /usr/local/bin/OptiType-${optitype_version}/config.ini
-RUN sed -i 's/threads=16/threads=8/' /usr/local/bin/OptiType-${optitype_version}/config.ini
+RUN sed -i 's/threads=16/threads=8/g' /usr/local/bin/OptiType-${optitype_version}/config.ini
+RUN sed -i 's/glpk/cbc/' /usr/local/bin/OptiType-${optitype_version}/config.ini
 
 # set defualt command
 WORKDIR /usr/local/bin/OptiType-${optitype_version}/
