@@ -67,6 +67,7 @@ RUN mv /usr/local/bin/OptiType-${optitype_version}/config.ini.example /usr/local
 RUN sed -i 's/\/path\/to\//\/usr\/local\/bin\//' /usr/local/bin/OptiType-${optitype_version}/config.ini
 RUN sed -i 's/threads=16/threads=8/g' /usr/local/bin/OptiType-${optitype_version}/config.ini
 RUN sed -i 's/glpk/cbc/' /usr/local/bin/OptiType-${optitype_version}/config.ini
+RUN sed -i 's/deletebam=true/deletebam=false/g' /usr/local/bin/OptiType-${optitype_version}/config.ini
 
 # set defualt command
 WORKDIR /usr/local/bin/OptiType-${optitype_version}/
