@@ -5,6 +5,7 @@ FROM ubuntu:18.04
 ENV optitype_version 1.3.2
 ENV samtools_version 1.2
 ENV bcftools_version 1.2
+ENV bwa_version 0.7.17
 
 # run update and install necessary tools ubuntu tools
 RUN apt-get update -y && apt-get install -y \
@@ -28,7 +29,8 @@ RUN apt-get update -y && apt-get install -y \
     pkg-config \
     vim \
     less \
-    coinor-cbc
+    coinor-cbc \
+    libz-dev
 
 # Install additional software dependencies
 WORKDIR /usr/local/bin/
@@ -68,6 +70,16 @@ RUN sed -i 's/\/path\/to\//\/usr\/local\/bin\//' /usr/local/bin/OptiType-${optit
 RUN sed -i 's/threads=16/threads=8/g' /usr/local/bin/OptiType-${optitype_version}/config.ini
 RUN sed -i 's/glpk/cbc/' /usr/local/bin/OptiType-${optitype_version}/config.ini
 RUN sed -i 's/deletebam=true/deletebam=false/g' /usr/local/bin/OptiType-${optitype_version}/config.ini
+
+# download bwa
+WORKDIR /usr/local/bin/
+
+RUN mkdir -p /usr/local/bin/ \
+  && curl -SL https://github.com/lh3/bwa/archive/v${bwa_version}.zip \
+  >  v${bwa_version}.zip
+RUN unzip v${bwa_version}.zip && rm -f v${bwa_version}.zip
+RUN cd /usr/local/bin/bwa-${bwa_version} && make
+RUN ln -s /usr/local/bin/bwa-${bwa_version}/bwa /usr/local/bin
 
 # set defualt command
 WORKDIR /usr/local/bin/OptiType-${optitype_version}/
