@@ -2,7 +2,7 @@
 FROM ubuntu:18.04
 
 # set the environment variables
-ENV optitype_version 1.3.2
+ENV optitype_version 1.3.4
 ENV samtools_version 1.2
 ENV bcftools_version 1.2
 ENV bwa_version 0.7.17
